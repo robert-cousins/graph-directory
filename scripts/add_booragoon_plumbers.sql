@@ -1,0 +1,148 @@
+-- Add 10 new plumber entries for Booragoon suburb
+INSERT INTO plumbers (
+  name, slug, suburb, description, phone, email, website,
+  rating, review_count, services, business_hours, hero_image
+) VALUES
+(
+  'Booragoon Plumbing Pros',
+  'booragoon-plumbing-pros',
+  'Booragoon',
+  'Expert plumbing services for Booragoon residents. Specializing in residential repairs, maintenance, and emergency callouts.',
+  '0412 345 601',
+  'info@booragoonplumbingpros.com.au',
+  'https://booragoonplumbingpros.com.au',
+  4.8,
+  95,
+  ARRAY['General Plumbing', 'Leak Detection', 'Tap Repairs', 'Emergency Services'],
+  '{"monday": "7:00 AM - 5:00 PM", "tuesday": "7:00 AM - 5:00 PM", "wednesday": "7:00 AM - 5:00 PM", "thursday": "7:00 AM - 5:00 PM", "friday": "7:00 AM - 5:00 PM", "saturday": "8:00 AM - 2:00 PM", "sunday": "Closed"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Aqua Fix Booragoon',
+  'aqua-fix-booragoon',
+  'Booragoon',
+  'Professional water and drainage solutions for homes and businesses in Booragoon. Quality workmanship guaranteed.',
+  '0423 456 702',
+  'contact@aquafixbooragoon.com.au',
+  'https://aquafixbooragoon.com.au',
+  4.9,
+  112,
+  ARRAY['Drain Cleaning', 'Hot Water Systems', 'Bathroom Renovations', 'Gas Fitting'],
+  '{"monday": "6:00 AM - 6:00 PM", "tuesday": "6:00 AM - 6:00 PM", "wednesday": "6:00 AM - 6:00 PM", "thursday": "6:00 AM - 6:00 PM", "friday": "6:00 AM - 6:00 PM", "saturday": "7:00 AM - 3:00 PM", "sunday": "Emergency Only"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Booragoon Drain Masters',
+  'booragoon-drain-masters',
+  'Booragoon',
+  'Specialists in blocked drains and pipe repairs. Servicing Booragoon with state-of-the-art equipment and expertise.',
+  '0434 567 803',
+  'service@booragoondrainmasters.com.au',
+  'https://booragoondrainmasters.com.au',
+  4.7,
+  88,
+  ARRAY['Blocked Drains', 'CCTV Inspections', 'Pipe Relining', 'Stormwater'],
+  '{"monday": "7:00 AM - 5:30 PM", "tuesday": "7:00 AM - 5:30 PM", "wednesday": "7:00 AM - 5:30 PM", "thursday": "7:00 AM - 5:30 PM", "friday": "7:00 AM - 5:30 PM", "saturday": "8:00 AM - 1:00 PM", "sunday": "Closed"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Elite Plumbing Booragoon',
+  'elite-plumbing-booragoon',
+  'Booragoon',
+  'Premium plumbing services with a focus on customer satisfaction. From minor repairs to major installations in Booragoon.',
+  '0445 678 904',
+  'hello@eliteplumbingbooragoon.com.au',
+  'https://eliteplumbingbooragoon.com.au',
+  5.0,
+  67,
+  ARRAY['Renovations', 'New Installations', 'Maintenance', 'Commercial Plumbing'],
+  '{"monday": "8:00 AM - 5:00 PM", "tuesday": "8:00 AM - 5:00 PM", "wednesday": "8:00 AM - 5:00 PM", "thursday": "8:00 AM - 5:00 PM", "friday": "8:00 AM - 5:00 PM", "saturday": "9:00 AM - 1:00 PM", "sunday": "Closed"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Booragoon Hot Water Solutions',
+  'booragoon-hot-water-solutions',
+  'Booragoon',
+  'Your local hot water system specialists. Installation, repairs, and maintenance for all brands serving Booragoon homes.',
+  '0456 789 005',
+  'support@booragoonhotwater.com.au',
+  'https://booragoonhotwater.com.au',
+  4.8,
+  103,
+  ARRAY['Hot Water Systems', 'System Repairs', 'Instantaneous Systems', 'Solar Hot Water'],
+  '{"monday": "7:00 AM - 5:00 PM", "tuesday": "7:00 AM - 5:00 PM", "wednesday": "7:00 AM - 5:00 PM", "thursday": "7:00 AM - 5:00 PM", "friday": "7:00 AM - 5:00 PM", "saturday": "8:00 AM - 12:00 PM", "sunday": "Emergency Only"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Rapid Response Plumbing Booragoon',
+  'rapid-response-plumbing-booragoon',
+  'Booragoon',
+  '24/7 emergency plumbing services for Booragoon. Fast response times and reliable solutions when you need them most.',
+  '0467 890 106',
+  'emergency@rapidresponsebooragoon.com.au',
+  'https://rapidresponsebooragoon.com.au',
+  4.6,
+  141,
+  ARRAY['Emergency Plumbing', 'Burst Pipes', 'Gas Leaks', '24/7 Service'],
+  '{"monday": "24/7", "tuesday": "24/7", "wednesday": "24/7", "thursday": "24/7", "friday": "24/7", "saturday": "24/7", "sunday": "24/7"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Booragoon Bathroom Specialists',
+  'booragoon-bathroom-specialists',
+  'Booragoon',
+  'Transform your bathroom with expert plumbing and renovation services. Quality craftsmanship for Booragoon homeowners.',
+  '0478 901 207',
+  'info@booragoonbathrooms.com.au',
+  'https://booragoonbathrooms.com.au',
+  4.9,
+  76,
+  ARRAY['Bathroom Renovations', 'Shower Installations', 'Vanity Installations', 'Tile Work'],
+  '{"monday": "7:30 AM - 4:30 PM", "tuesday": "7:30 AM - 4:30 PM", "wednesday": "7:30 AM - 4:30 PM", "thursday": "7:30 AM - 4:30 PM", "friday": "7:30 AM - 4:30 PM", "saturday": "By Appointment", "sunday": "Closed"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Eco Plumb Booragoon',
+  'eco-plumb-booragoon',
+  'Booragoon',
+  'Environmentally conscious plumbing solutions for Booragoon. Water-saving fixtures and sustainable practices.',
+  '0489 012 308',
+  'contact@ecoplumbbooragoon.com.au',
+  'https://ecoplumbbooragoon.com.au',
+  4.7,
+  59,
+  ARRAY['Water Efficiency', 'Rainwater Systems', 'Greywater', 'Eco Fixtures'],
+  '{"monday": "8:00 AM - 5:00 PM", "tuesday": "8:00 AM - 5:00 PM", "wednesday": "8:00 AM - 5:00 PM", "thursday": "8:00 AM - 5:00 PM", "friday": "8:00 AM - 5:00 PM", "saturday": "9:00 AM - 1:00 PM", "sunday": "Closed"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'Booragoon Gas & Plumbing',
+  'booragoon-gas-plumbing',
+  'Booragoon',
+  'Licensed gas fitters and plumbers serving Booragoon. Expert installation and maintenance of gas appliances.',
+  '0490 123 409',
+  'service@booragoongasplumbing.com.au',
+  'https://booragoongasplumbing.com.au',
+  4.8,
+  92,
+  ARRAY['Gas Fitting', 'Gas Appliances', 'Safety Inspections', 'General Plumbing'],
+  '{"monday": "7:00 AM - 5:00 PM", "tuesday": "7:00 AM - 5:00 PM", "wednesday": "7:00 AM - 5:00 PM", "thursday": "7:00 AM - 5:00 PM", "friday": "7:00 AM - 5:00 PM", "saturday": "8:00 AM - 2:00 PM", "sunday": "Emergency Only"}'::jsonb,
+  '/images/plumber-business-hero.png'
+),
+(
+  'AllHours Plumbing Booragoon',
+  'allhours-plumbing-booragoon',
+  'Booragoon',
+  'Your reliable plumbing partner in Booragoon. Comprehensive services from routine maintenance to complex installations.',
+  '0401 234 510',
+  'admin@allhoursbooragoon.com.au',
+  'https://allhoursbooragoon.com.au',
+  4.9,
+  118,
+  ARRAY['Maintenance', 'Renovations', 'Leak Repairs', 'Kitchen Plumbing'],
+  '{"monday": "6:30 AM - 6:00 PM", "tuesday": "6:30 AM - 6:00 PM", "wednesday": "6:30 AM - 6:00 PM", "thursday": "6:30 AM - 6:00 PM", "friday": "6:30 AM - 6:00 PM", "saturday": "7:00 AM - 3:00 PM", "sunday": "Closed"}'::jsonb,
+  '/images/plumber-business-hero.png'
+);
+
+-- Verify the additions
+SELECT name, suburb, slug, hero_image FROM plumbers WHERE suburb = 'Booragoon' ORDER BY name;
