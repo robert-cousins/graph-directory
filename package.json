@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
-    "lint": "eslint \"{app,components,lib,types,scripts}/**/*.{js,jsx,ts,tsx}\"",
-    "start": "next start",
+    "build": "next build apps/plumbers",
+    "dev": "next dev apps/plumbers",
+    "lint": "eslint \"apps/plumbers/{app,components,lib,types,scripts}/**/*.{js,jsx,ts,tsx}\"",
+    "start": "next start apps/plumbers",
     "test": "node -e \"console.log('No tests yet (deferred)')\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc -p apps/plumbers/tsconfig.json --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
