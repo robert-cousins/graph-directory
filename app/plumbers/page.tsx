@@ -5,6 +5,10 @@ import { PlumberCard } from '@/components/plumber-card'
 import { listPublishedBusinesses } from '@/lib/business-service'
 import type { BusinessFilters, BusinessSortBy, SortDirection } from '@/types/business'
 
+// This page depends on runtime data (Supabase). Force dynamic rendering so CI builds
+// don’t require DB env vars during prerender.
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   searchParams: {
     page?: string

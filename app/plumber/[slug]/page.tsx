@@ -11,6 +11,10 @@ import { Badge } from "@/components/ui/badge"
 
 import { getPublishedBusinessBySlug, listPublishedBusinesses } from "@/lib/business-service"
 
+// This route depends on runtime data (Supabase). Force dynamic rendering so CI builds
+// don’t require DB env vars during prerender.
+export const dynamic = 'force-dynamic'
+
 interface PlumberPageProps {
   params: {
     slug: string
@@ -312,14 +316,4 @@ export default async function PlumberPage({ params }: PlumberPageProps) {
       </div>
     </div>
   )
-}
-
-export async function generateStaticParams() {
-  try {
-    const result = await listPublishedBusinesses({ pagination: { page: 1, pageSize: 100 } })
-    return (result.data || []).map((business) => ({ slug: business.slug }))
-  } catch (error) {
-    console.warn("Failed to fetch businesses for static generation:", error)
-    return []
-  }
 }
