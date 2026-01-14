@@ -1,8 +1,9 @@
 'use client'
 
 import type React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { submitBusinessAction } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -23,6 +24,25 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
   const [error, setError] = useState<string | null>(null)
   const [editPath, setEditPath] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [countdown, setCountdown] = useState(10)
+
+  // Auto-redirect after successful submission
+  useEffect(() => {
+    if (!editPath) return
+
+    const countdownInterval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(countdownInterval)
+          router.push('/')
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(countdownInterval)
+  }, [editPath, router])
 
   // Form state
   const [formData, setFormData] = useState({
@@ -108,8 +128,14 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
         throw new Error(result.error)
       }
 
-      // Show edit URL
+      // Security: Don't log editPath - it contains the edit token
+      console.log('Business submission successful:', result.slug)
+
+      // Show edit URL and trigger redirect countdown
       setEditPath(result.editPath)
+      setCountdown(10)
+
+
     } catch (err) {
       console.error('Error submitting business:', err)
       setError(err instanceof Error ? err.message : 'Failed to submit your business listing')
@@ -124,25 +150,33 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
         <Card className="max-w-2xl w-full">
-          <CardHeader className="bg-yellow-50">
-            <CardTitle className="text-center text-2xl text-yellow-900">⚠️ SAVE THIS LINK</CardTitle>
-            <CardDescription className="text-center text-yellow-800">
-              This is the ONLY time you'll see your edit link
+          <CardHeader>
+            <CardTitle className="text-center text-2xl">Submitted Successfully</CardTitle>
+            <CardDescription className="text-center">
+              Your business has been submitted for review. Redirecting home in {countdown} second{countdown !== 1 ? 's' : ''}...
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
-            <div className="p-4 bg-yellow-50 border-2 border-yellow-400 rounded-lg">
-              <p className="font-bold text-yellow-900 mb-2">⚠️ IMPORTANT - READ THIS</p>
-              <p className="text-yellow-800 text-sm mb-3">
-                There is NO account system. If you lose this link, you CANNOT edit your listing.
-                Copy it now and save it somewhere safe (bookmark, email yourself, etc).
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="font-semibold text-green-900 mb-2">Your listing is pending review</p>
+              <p className="text-green-800 text-sm">
+                It will appear in the directory once approved by our team.
               </p>
-              <div className="bg-white p-3 rounded border border-yellow-300 break-all font-mono text-sm mb-3">
+            </div>
+
+            <div className="p-4 bg-muted border border-border rounded-lg">
+              <p className="text-sm font-medium mb-2">Save your edit link</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                This is the only time you'll see this link. Copy it now to edit your listing later.
+              </p>
+              <div className="bg-background p-3 rounded border border-border break-all font-mono text-xs mb-3">
                 {fullUrl}
               </div>
               <Button
                 onClick={handleCopy}
-                className="w-full bg-yellow-600 hover:bg-yellow-700"
+                variant="outline"
+                className="w-full"
+                size="sm"
               >
                 {copied ? (
                   <>
@@ -158,29 +192,19 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
               </Button>
             </div>
 
-            <div className="p-4 bg-green-50 border border-green-300 rounded-lg">
-              <p className="font-bold text-green-900 mb-2">✓ Submission Successful</p>
-              <p className="text-green-800 text-sm mb-2">
-                Your business has been submitted for review. It will appear in the directory once approved by our team.
-              </p>
-              <p className="text-green-800 text-sm">
-                Status: <span className="font-semibold">Pending Review</span>
-              </p>
-            </div>
-
             <div className="flex gap-3">
               <Button
                 onClick={() => router.push('/')}
-                variant="outline"
                 className="flex-1"
               >
                 Go to Home
               </Button>
               <Button
-                onClick={() => router.push(editPath)}
+                onClick={() => router.push('/plumbers')}
+                variant="outline"
                 className="flex-1"
               >
-                Edit Your Listing
+                View Directory
               </Button>
             </div>
           </CardContent>
@@ -197,6 +221,23 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
           <p className="text-muted-foreground text-lg">
             Join our directory and connect with customers in your service areas
           </p>
+        </div>
+
+        <div className="flex gap-3 max-w-md mx-auto mb-6">
+          <Button
+            onClick={() => router.push('/')}
+            variant="outline"
+            className="flex-1"
+          >
+            Go to Home
+          </Button>
+          <Button
+            onClick={() => router.push('/plumbers')}
+            variant="outline"
+            className="flex-1"
+          >
+            View Directory
+          </Button>
         </div>
 
         <Card>

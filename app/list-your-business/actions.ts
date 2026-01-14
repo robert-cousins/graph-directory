@@ -1,7 +1,6 @@
 'use server'
 
 import { headers } from 'next/headers'
-import { revalidatePath } from 'next/cache'
 import { createBusinessSubmission } from '@/lib/directory-admin'
 
 /**
@@ -57,11 +56,12 @@ export async function submitBusinessAction(formData: FormData) {
   // Call data layer
   const result = await createBusinessSubmission(input, { rateLimitKey })
 
-  // Revalidate paths (Next.js concern - belongs in action layer)
-  if (result.success) {
-    revalidatePath('/plumbers')
-    revalidatePath(`/plumber/${result.slug}`)
-  }
+  // Note: No revalidation needed here since submissions are pending review
+  // and won't appear in the directory until approved by admin
+  //
+  // Future: Add revalidatePath() for:
+  // - Edit flow: when updating published listings (revalidate /plumber/[slug])
+  // - Admin approve: when status changes to published (revalidate /plumbers, /plumber/[slug], etc.)
 
   return result
 }

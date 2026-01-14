@@ -66,13 +66,14 @@ BEGIN
   SET search_path = public;
 
   -- Insert business (status defaults to 'pending_review')
+  -- NOTE: emergency_available is NOT a column - it's computed in published_businesses view
   INSERT INTO public.businesses (
     slug, legal_name, trading_name, description, phone, email,
-    website, street_address, years_experience, emergency_available,
+    website, street_address, years_experience,
     raw_business_hours, status, edit_token_hash, edit_token_created_at
   ) VALUES (
     p_slug, p_legal_name, p_trading_name, p_description, p_phone, p_email,
-    p_website, p_street_address, p_years_experience, p_emergency_available,
+    p_website, p_street_address, p_years_experience,
     p_raw_business_hours, 'pending_review', p_edit_token_hash, NOW()
   ) RETURNING id INTO v_business_id;
 
@@ -96,6 +97,16 @@ BEGIN
     INSERT INTO public.business_service_areas (business_id, service_area_id)
     VALUES (v_business_id, v_area_id);
   END LOOP;
+
+  -- Create emergency availability window if requested
+  -- This makes emergency_available appear as TRUE in published_businesses view
+  IF p_emergency_available = TRUE THEN
+    INSERT INTO public.availability_windows (
+      business_id, is_emergency
+    ) VALUES (
+      v_business_id, TRUE
+    );
+  END IF;
 
   -- Return result
   RETURN QUERY SELECT v_business_id, p_slug;

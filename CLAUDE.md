@@ -2,9 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# Local Services Directory
+
+Location based directory for service-based businesses, designed with entity graph relationships
+
 # Melville Plumbers Directory
 
-Local business directory for finding plumbers in Melville/Myaree, WA. Built with Next.js 14, TypeScript, and Supabase.
+Dev/Demo/Testing Instance of the Directory Template local business directory for finding plumbers in Melville/Myaree, WA. Built with Next.js 14, TypeScript, and Supabase.
 
 ## Project Structure
 

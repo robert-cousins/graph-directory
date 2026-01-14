@@ -366,7 +366,7 @@ export async function getBusinessForEdit(
       .from('businesses')
       .select(`
         id, slug, legal_name, trading_name, description, phone, email,
-        website, street_address, years_experience, emergency_available,
+        website, street_address, years_experience,
         raw_business_hours, status, created_at, updated_at, edit_token_hash
       `)
       .eq('slug', slug)
@@ -384,11 +384,18 @@ export async function getBusinessForEdit(
       return null
     }
 
-    // Fetch related data
-    const [services, areas, credentials] = await Promise.all([
+    // Fetch related data + derive emergency_available from availability_windows
+    const [services, areas, credentials, emergencyCheck] = await Promise.all([
       fetchBusinessServices(business.id, supabase),
       fetchBusinessServiceAreas(business.id, supabase),
       fetchBusinessCredentials(business.id, supabase),
+      supabase
+        .from('availability_windows')
+        .select('id')
+        .eq('business_id', business.id)
+        .eq('is_emergency', true)
+        .limit(1)
+        .maybeSingle()
     ])
 
     return {
@@ -402,7 +409,7 @@ export async function getBusinessForEdit(
       website: business.website,
       street_address: business.street_address,
       years_experience: business.years_experience,
-      emergency_available: business.emergency_available,
+      emergency_available: !!emergencyCheck.data,  // Derived from availability_windows
       raw_business_hours: business.raw_business_hours,
       status: business.status,
       services: services.map(s => s.slug),
@@ -445,7 +452,7 @@ export async function updateBusinessWithToken(
 
     // Update business fields
     const businessFields = Object.keys(validated).filter(
-      k => !['services', 'service_areas', 'license_number'].includes(k)
+      k => !['services', 'service_areas', 'license_number', 'emergency_available'].includes(k)
     )
     if (businessFields.length > 0) {
       const updateData: any = {}
@@ -500,6 +507,27 @@ export async function updateBusinessWithToken(
         }, {
           onConflict: 'business_id,credential_type'
         })
+    }
+
+    // Update emergency availability (via availability_windows table)
+    // emergency_available is NOT a column on businesses - it's derived from availability_windows
+    if (validated.emergency_available !== undefined) {
+      // Delete existing emergency windows
+      await supabase
+        .from('availability_windows')
+        .delete()
+        .eq('business_id', business.id)
+        .eq('is_emergency', true)
+
+      // If enabling emergency service, create new window
+      if (validated.emergency_available === true) {
+        await supabase
+          .from('availability_windows')
+          .insert({
+            business_id: business.id,
+            is_emergency: true,
+          })
+      }
     }
 
     // NO revalidatePath here - moved to action layer
