@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build apps/plumbers",
-    "dev": "next dev apps/plumbers",
+    "build": "node tools/run-next.mjs build",
+    "dev": "node tools/run-next.mjs dev",
     "lint": "eslint \"apps/plumbers/{app,components,lib,types,scripts}/**/*.{js,jsx,ts,tsx}\"",
-    "start": "next start apps/plumbers",
+    "start": "node tools/run-next.mjs start",
     "test": "node -e \"console.log('No tests yet (deferred)')\"",
     "typecheck": "tsc -p apps/plumbers/tsconfig.json --noEmit"
   },
