@@ -76,4 +76,12 @@
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
   }
+  {
+  "scripts": {
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  }
+}
+
 }
