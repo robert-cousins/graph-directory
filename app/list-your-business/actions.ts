@@ -8,9 +8,10 @@ import { createBusinessSubmission } from '@/lib/directory-admin'
  * Takes first IP from x-forwarded-for (if comma-separated list)
  * Falls back to 'global' if IP unavailable (local/dev)
  */
-function getRateLimitKey(): string {
+async function getRateLimitKey(): Promise<string> {
   try {
-    const headersList = headers()
+    // Next 15+ `headers()` is async
+    const headersList = await headers()
     const forwarded = headersList.get('x-forwarded-for')
     const realIp = headersList.get('x-real-ip')
 
@@ -51,7 +52,7 @@ export async function submitBusinessAction(formData: FormData) {
   }
 
   // Extract rate limit key
-  const rateLimitKey = getRateLimitKey()
+  const rateLimitKey = await getRateLimitKey()
 
   // Call data layer
   const result = await createBusinessSubmission(input, { rateLimitKey })

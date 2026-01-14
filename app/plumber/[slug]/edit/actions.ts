@@ -8,9 +8,10 @@ import type { BusinessUpdateInput } from '@/lib/directory-admin'
 /**
  * Extract rate limit key from request headers
  */
-function getRateLimitKey(): string {
+async function getRateLimitKey(): Promise<string> {
   try {
-    const headersList = headers()
+    // Next 15+ `headers()` is async
+    const headersList = await headers()
     const forwarded = headersList.get('x-forwarded-for')
     const realIp = headersList.get('x-real-ip')
 
@@ -33,7 +34,7 @@ export async function updateBusinessAction(
   token: string,
   patch: BusinessUpdateInput
 ) {
-  const rateLimitKey = getRateLimitKey()
+  const rateLimitKey = await getRateLimitKey()
   const result = await updateBusinessWithToken(slug, token, patch, { rateLimitKey })
 
   if (result.success) {

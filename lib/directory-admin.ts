@@ -103,7 +103,8 @@ const BusinessSubmissionSchema = z.object({
   street_address: z.string().optional(),
   years_experience: z.number().int().min(0).optional(),
   emergency_available: z.boolean().optional(),
-  raw_business_hours: z.record(z.string()).optional(),
+  // Zod v4 requires both key + value schemas
+  raw_business_hours: z.record(z.string(), z.string()).optional(),
 })
 
 const BusinessUpdateSchema = BusinessSubmissionSchema.partial()
