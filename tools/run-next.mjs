@@ -1,4 +1,4 @@
-import { loadEnvConfig } from '@next/env'
+import nextEnv from '@next/env'
 import { spawnSync } from 'node:child_process'
 
 // Phase 4 Stage 2: Next.js app is relocated to apps/plumbers, but we keep .env.local
@@ -6,6 +6,7 @@ import { spawnSync } from 'node:child_process'
 // We load env from the repo root, then invoke next against apps/plumbers.
 
 const repoRoot = process.cwd()
+const { loadEnvConfig } = nextEnv
 loadEnvConfig(repoRoot)
 
 const cmd = process.argv[2]
