@@ -1,0 +1,49 @@
+name: Feature
+description: New capability or enhancement
+title: "feat: "
+labels: ["feature"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - core-db
+        - core-contracts
+        - core-data
+        - core-mutators
+        - core-ui
+        - instance:plumbers
+        - docs
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: What should be true when this is done?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / non-scope
+      description: What’s included, what’s explicitly not.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Bullet list of checks to confirm completion.
+    validations:
+      required: true
+
+  - type: textarea
+    id: invariants
+    attributes:
+      label: Invariants / constraints
+      description: Anything we must not violate (publish gates, read contracts, etc.)
