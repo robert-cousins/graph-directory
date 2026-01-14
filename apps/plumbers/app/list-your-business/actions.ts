@@ -1,7 +1,7 @@
 'use server'
 
 import { headers } from 'next/headers'
-import { createBusinessSubmission } from '@/lib/directory-admin'
+import { createBusinessSubmission } from '@graph-directory/core-mutators'
 
 /**
  * Extract rate limit key from request headers

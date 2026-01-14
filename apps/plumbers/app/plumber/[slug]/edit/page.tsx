@@ -3,7 +3,7 @@ import {
   getBusinessForEdit,
   getAllServiceSlugs,
   getAllAreaSlugs,
-} from '@/lib/directory-admin'
+} from '@graph-directory/core-mutators'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { EditBusinessForm } from './edit-form'

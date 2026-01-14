@@ -2,8 +2,8 @@ import { Header } from '@/components/header'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { DesktopFilters, MobileFilters } from '@/components/plumbers-filters'
 import { PlumberCard } from '@/components/plumber-card'
-import { listPublishedBusinesses } from '@/lib/business-service'
-import type { BusinessFilters, BusinessSortBy, SortDirection } from '@/types/business'
+import { listPublishedBusinesses } from '@graph-directory/core-data'
+import type { BusinessFilters, BusinessSortBy, SortDirection } from '@graph-directory/core-contracts'
 
 // This page depends on runtime data (Supabase). Force dynamic rendering so CI builds
 // don’t require DB env vars during prerender.

@@ -3,7 +3,7 @@ import { Star, Phone, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import type { PublishedBusiness } from "@/types/business"
+import type { PublishedBusiness } from "@graph-directory/core-contracts"
 
 interface PlumberCardProps {
   business: PublishedBusiness

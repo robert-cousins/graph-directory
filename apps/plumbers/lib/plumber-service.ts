@@ -4,7 +4,7 @@
  * This file will be removed in a future version.
  */
 
-import { createServerClientSimple } from "./supabase/server"
+import { createServerClientSimple } from "@graph-directory/core-data"
 import type { Plumber } from "@/types/plumber"
 
 // Get a server client instance

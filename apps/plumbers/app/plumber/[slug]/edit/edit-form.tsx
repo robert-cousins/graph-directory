@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { updateBusinessAction } from './actions'
-import type { EditableBusinessData } from '@/lib/directory-admin'
+import type { EditableBusinessData } from '@graph-directory/core-mutators'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'

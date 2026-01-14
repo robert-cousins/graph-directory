@@ -1,4 +1,4 @@
-import { getAllServiceSlugs, getAllAreaSlugs } from '@/lib/directory-admin'
+import { getAllServiceSlugs, getAllAreaSlugs } from '@graph-directory/core-mutators'
 import { ListBusinessForm } from './list-business-form'
 
 export default async function ListYourBusinessPage() {

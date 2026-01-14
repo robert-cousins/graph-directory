@@ -14,7 +14,7 @@ import type {
   BusinessListOptions,
   BusinessSortBy,
   SortDirection,
-} from '@/types/business'
+} from '@graph-directory/core-contracts'
 
 // ============================================================================
 // Supabase Client

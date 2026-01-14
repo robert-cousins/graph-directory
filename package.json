@@ -5,12 +5,15 @@
   "scripts": {
     "build": "node tools/run-next.mjs build",
     "dev": "node tools/run-next.mjs dev",
-    "lint": "eslint \"apps/plumbers/{app,components,lib,types,scripts}/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"apps/plumbers/**/*.{ts,tsx}\" \"packages/core-*/src/**/*.{ts,tsx}\"",
     "start": "node tools/run-next.mjs start",
     "test": "node -e \"console.log('No tests yet (deferred)')\"",
-    "typecheck": "tsc -p apps/plumbers/tsconfig.json --noEmit"
+    "typecheck": "tsc --build tsconfig.json"
   },
   "dependencies": {
+    "@graph-directory/core-contracts": "workspace:*",
+    "@graph-directory/core-data": "workspace:*",
+    "@graph-directory/core-mutators": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-alert-dialog": "1.1.15",

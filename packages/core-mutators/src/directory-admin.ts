@@ -6,7 +6,7 @@
  * NEVER import into client components - server actions/components only
  */
 
-import crypto from 'crypto'
+import * as crypto from 'crypto'
 import { z } from 'zod'
 import { createServiceRoleClient } from './supabase/service-role'
 import type { SupabaseClient } from '@supabase/supabase-js'

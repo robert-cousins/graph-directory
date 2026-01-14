@@ -2,8 +2,8 @@
 
 import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
-import { updateBusinessWithToken } from '@/lib/directory-admin'
-import type { BusinessUpdateInput } from '@/lib/directory-admin'
+import { updateBusinessWithToken } from '@graph-directory/core-mutators'
+import type { BusinessUpdateInput } from '@graph-directory/core-mutators'
 
 /**
  * Extract rate limit key from request headers

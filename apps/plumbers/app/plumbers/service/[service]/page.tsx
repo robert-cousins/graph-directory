@@ -1,9 +1,9 @@
 import { Header } from '@/components/header'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { PlumberCard } from '@/components/plumber-card'
-import { listPublishedBusinessesByService } from '@/lib/business-service'
+import { listPublishedBusinessesByService } from '@graph-directory/core-data'
 import { notFound } from 'next/navigation'
-import type { BusinessFilters } from '@/types/business'
+import type { BusinessFilters } from '@graph-directory/core-contracts'
 
 interface PageProps {
   params: {
