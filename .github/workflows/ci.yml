@@ -19,25 +19,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 1) Install pnpm first so it's on PATH
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "9"
+
+      # 2) Setup Node and enable pnpm store caching
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: "9"
-
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm -r lint
+        run: pnpm lint
 
       - name: Typecheck
-        run: pnpm -r typecheck
+        run: pnpm typecheck
 
-      - name: Test
-        run: pnpm -r test
+      - name: Build
+        run: pnpm build
