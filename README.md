@@ -435,3 +435,4 @@ interface BusinessFilters {
   search?: string       // Text search
 }
 ```
+
