@@ -137,7 +137,7 @@ export function DesktopFilters() {
     if (newUrl !== currentUrl) {
       router.push(newUrl, { scroll: false })
     }
-  }, [selectedServices, selectedRating, selectedAvailability, selectedSuburb, sortBy])
+  }, [selectedServices, selectedRating, selectedAvailability, selectedSuburb, sortBy, router, searchParams])
 
   return (
     <FilterSidebar
@@ -230,7 +230,7 @@ export function MobileFilters() {
     if (newUrl !== currentUrl) {
       router.push(newUrl, { scroll: false })
     }
-  }, [selectedServices, selectedRating, selectedAvailability, selectedSuburb, sortBy])
+  }, [selectedServices, selectedRating, selectedAvailability, selectedSuburb, sortBy, router, searchParams])
 
   return (
     <MobileFilterMenu

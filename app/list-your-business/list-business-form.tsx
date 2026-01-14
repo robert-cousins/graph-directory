@@ -167,7 +167,7 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
             <div className="p-4 bg-muted border border-border rounded-lg">
               <p className="text-sm font-medium mb-2">Save your edit link</p>
               <p className="text-sm text-muted-foreground mb-3">
-                This is the only time you'll see this link. Copy it now to edit your listing later.
+                This is the only time you&apos;ll see this link. Copy it now to edit your listing later.
               </p>
               <div className="bg-background p-3 rounded border border-border break-all font-mono text-xs mb-3">
                 {fullUrl}
@@ -455,7 +455,7 @@ export function ListBusinessForm({ availableServices, availableAreas }: ListBusi
                   ))}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Enter your operating hours for each day. Use "Closed" for days you don't operate.
+                  Enter your operating hours for each day. Use &quot;Closed&quot; for days you don&apos;t operate.
                 </p>
               </div>
 
