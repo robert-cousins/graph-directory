@@ -7,6 +7,9 @@ export const isSupabaseConfigured =
   typeof process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === "string" &&
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.length > 0
 
+// Lazy initialization - client is only created when first accessed
+let supabaseClient: ReturnType<typeof createBrowserClient> | null = null
+
 export function createClient() {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,8 +17,18 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
-export const supabase = createClient()
 
 export const getSupabaseClient = () => {
-  return supabase
+  if (!supabaseClient) {
+    if (!isSupabaseConfigured) {
+      throw new Error(
+        'Supabase client not configured. Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.'
+      )
+    }
+    supabaseClient = createClient()
+  }
+  return supabaseClient
 }
+
+// Legacy export for backward compatibility - now uses lazy initialization
+export const supabase = getSupabaseClient()
