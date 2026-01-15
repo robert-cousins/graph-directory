@@ -9,24 +9,25 @@ interface PageProps {
   params: {
     service: string
   }
-  searchParams: {
+  searchParams: Promise<{
     page?: string
     pageSize?: string
     emergency?: string
     verified?: string
     minRating?: string
-  }
+  }>
 }
 
 export default async function ServicePage({ params, searchParams }: PageProps) {
   const { service } = params
 
   // Parse search params
-  const page = parseInt(searchParams.page || '1', 10)
-  const pageSize = parseInt(searchParams.pageSize || '20', 10)
-  const emergency = searchParams.emergency === 'true'
-  const verified = searchParams.verified === 'true'
-  const minRating = searchParams.minRating ? parseFloat(searchParams.minRating) : undefined
+  const sp = await searchParams
+  const page = parseInt(sp.page || '1', 10)
+  const pageSize = parseInt(sp.pageSize || '20', 10)
+  const emergency = sp.emergency === 'true'
+  const verified = sp.verified === 'true'
+  const minRating = sp.minRating ? parseFloat(sp.minRating) : undefined
 
   // Build additional filters
   const additionalFilters: Omit<BusinessFilters, 'service'> = {}

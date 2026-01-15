@@ -10,12 +10,13 @@ import { EditBusinessForm } from './edit-form'
 
 interface PageProps {
   params: { slug: string }
-  searchParams: { token?: string }
+  searchParams: Promise<{ token?: string }>
 }
 
 export default async function EditBusinessPage({ params, searchParams }: PageProps) {
   const { slug } = params
-  const token = searchParams.token
+  const sp = await searchParams
+  const token = sp.token
 
   // Missing token
   if (!token) {
