@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-import { getPublishedBusinessBySlug, listPublishedBusinesses } from "@/lib/business-service"
+import { getPublishedBusinessBySlug, listPublishedBusinesses } from "@graph-directory/core-data"
 
 // This route depends on runtime data (Supabase). Force dynamic rendering so CI builds
 // don’t require DB env vars during prerender.
