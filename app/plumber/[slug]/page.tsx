@@ -16,13 +16,14 @@ import { getPublishedBusinessBySlug, listPublishedBusinesses } from "@graph-dire
 export const dynamic = 'force-dynamic'
 
 interface PlumberPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default async function PlumberPage({ params }: PlumberPageProps) {
-  const business = await getPublishedBusinessBySlug(params.slug)
+  const { slug } = await params
+  const business = await getPublishedBusinessBySlug(slug)
 
   if (!business) {
     notFound()

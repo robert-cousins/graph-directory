@@ -10,7 +10,7 @@ import type { BusinessFilters, BusinessSortBy, SortDirection } from '@graph-dire
 export const dynamic = 'force-dynamic'
 
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string
     pageSize?: string
     emergency?: string
@@ -19,19 +19,20 @@ interface PageProps {
     search?: string
     sort?: string
     direction?: string
-  }
+  }>
 }
 
 export default async function PlumbersPage({ searchParams }: PageProps) {
   // Parse search params
-  const page = parseInt(searchParams.page || '1', 10)
-  const pageSize = parseInt(searchParams.pageSize || '20', 10)
-  const emergency = searchParams.emergency === 'true'
-  const verified = searchParams.verified === 'true'
-  const minRating = searchParams.minRating ? parseFloat(searchParams.minRating) : undefined
-  const search = searchParams.search || undefined
-  const sortBy = (searchParams.sort as BusinessSortBy) || 'rating'
-  const sortDirection = (searchParams.direction as SortDirection) || 'desc'
+  const sp = await searchParams
+  const page = parseInt(sp.page || '1', 10)
+  const pageSize = parseInt(sp.pageSize || '20', 10)
+  const emergency = sp.emergency === 'true'
+  const verified = sp.verified === 'true'
+  const minRating = sp.minRating ? parseFloat(sp.minRating) : undefined
+  const search = sp.search || undefined
+  const sortBy = (sp.sort as BusinessSortBy) || 'rating'
+  const sortDirection = (sp.direction as SortDirection) || 'desc'
 
   // Build filters
   const filters: BusinessFilters = {}
