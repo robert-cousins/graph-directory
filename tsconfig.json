@@ -25,6 +25,15 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@graph-directory/core-contracts": [
+        "./packages/core-contracts/src/index.ts"
+      ],
+      "@graph-directory/core-data": [
+        "./packages/core-data/src/index.ts"
+      ],
+      "@graph-directory/core-mutators": [
+        "./packages/core-mutators/src/index.ts"
       ]
     }
   },
