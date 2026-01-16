@@ -115,10 +115,48 @@ Authoritative publication lifecycle and visibility rules are defined in:
 
 - `docs/architecture/phase-5-publication-model.md`
 
-### Contract intent (to be implemented in Phase 5.2+)
+### Phase 5 Lifecycle Implementation
 
-- Public read surfaces (`published_*` views and/or public RPCs) must only return records in `lifecycle_state = 'published'`.
-- Non-published records must not be readable by anonymous/public roles.
-- Admin/editor read surfaces for draft/review content must be exposed via DB views/RPCs and consumed through `core-data` (never via raw table queries in apps/instances).
-- All lifecycle transitions must occur through `core-mutators` and remain server-only.
+Phase 5 implements a publication lifecycle using the existing `status` field with the following mapping:
 
+- **draft** → `status = 'draft'`
+- **review** → `status = 'pending_review'`
+- **published** → `status = 'published'`
+
+### Contract Semantics (Implemented)
+
+#### Public Read Surfaces
+- `public.published_businesses` view: Returns ONLY businesses with `status = 'published'`
+- `public.get_businesses_by_service()` function: Returns ONLY published businesses
+- `public.get_businesses_by_area()` function: Returns ONLY published businesses
+
+#### Admin/Editor Read Surfaces
+- `public.pending_review_queue` view: Returns businesses with `status IN ('draft', 'pending_review')` for editorial workflow
+- `public.editorial_businesses` view: Comprehensive admin view for businesses with `status IN ('draft', 'pending_review', 'published')`
+
+#### Lifecycle Transition Functions
+- `public.submit_for_review(p_business_id UUID, p_submitted_by UUID)`: Transitions `draft → pending_review`
+- `public.request_changes(p_business_id UUID, p_requested_by UUID)`: Transitions `pending_review → draft` (admin only)
+- `public.publish_business(p_business_id UUID, p_published_by UUID)`: Transitions `pending_review → published` (admin only)
+- `public.unpublish_business(p_business_id UUID, p_unpublished_by UUID)`: Transitions `published → draft` (admin only)
+
+### Audit Fields
+
+Phase 5 adds the following audit fields to the `businesses` table:
+
+- `review_submitted_at`: Timestamp when submitted for review
+- `review_submitted_by`: User ID who submitted for review
+- `published_at`: Timestamp when published (existing field)
+- `published_by`: User ID who published the business
+
+### Visibility Enforcement
+
+- **Public visibility**: Enforced at DB level via `published_businesses` view and RLS policies
+- **Admin visibility**: Access to draft/review content via `editorial_businesses` view (service_role only)
+- **Transition gating**: All lifecycle changes occur through SECURITY DEFINER functions accessible only via `core-mutators`
+
+### Stability Guarantees
+
+- All existing public contracts (`published_businesses`, `get_businesses_by_service`, `get_businesses_by_area`) maintain their interfaces and semantics
+- New admin surfaces are additive and do not affect existing functionality
+- Lifecycle transitions are atomic and audited

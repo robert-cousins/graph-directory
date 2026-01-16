@@ -518,3 +518,53 @@ export async function getAllPublishedAreas(): Promise<string[]> {
 
   return uniqueAreas.sort()
 }
+
+// ============================================================================
+// Admin/Editor Functions (Phase 5)
+// ============================================================================
+
+/**
+ * List businesses in editorial workflow (draft + pending_review)
+ * Uses: pending_review_queue view
+ */
+export async function listEditorialBusinesses(): Promise<any[]> {
+  const supabase = getClient()
+
+  const { data, error } = await supabase
+    .from('pending_review_queue')
+    .select('*')
+    .order('status', { ascending: false }) // pending_review first
+    .order('submitted_at', { ascending: true }) // oldest first
+
+  if (error) {
+    console.error('Error fetching editorial businesses:', error)
+    return []
+  }
+
+  return data || []
+}
+
+/**
+ * Get comprehensive business data for admin review
+ * Uses: editorial_businesses view
+ */
+export async function getBusinessForAdminReview(businessId: string): Promise<any | null> {
+  if (!businessId) {
+    throw new Error('Business ID is required')
+  }
+
+  const supabase = getClient()
+
+  const { data, error } = await supabase
+    .from('editorial_businesses')
+    .select('*')
+    .eq('id', businessId)
+    .maybeSingle()
+
+  if (error) {
+    console.error(`Error fetching business ${businessId} for admin review:`, error)
+    return null
+  }
+
+  return data || null
+}
