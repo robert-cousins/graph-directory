@@ -580,3 +580,131 @@ export async function getAllAreaSlugs(): Promise<string[]> {
     return []
   }
 }
+
+// ============================================================================
+// Phase 5 Lifecycle Transition Mutators
+// ============================================================================
+
+/**
+ * Submit business for review (draft → pending_review)
+ * Requires: Token editor OR admin
+ */
+export async function submitBusinessForReview(
+  businessId: string,
+  submittedByUserId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createServiceRoleClient()
+
+    const { error } = await supabase.rpc('submit_for_review', {
+      p_business_id: businessId,
+      p_submitted_by: submittedByUserId,
+    })
+
+    if (error) {
+      console.error('submit_for_review error:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('submitBusinessForReview error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
+
+/**
+ * Request changes (pending_review → draft)
+ * Requires: Admin only
+ */
+export async function requestChangesForBusiness(
+  businessId: string,
+  requestedByUserId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createServiceRoleClient()
+
+    const { error } = await supabase.rpc('request_changes', {
+      p_business_id: businessId,
+      p_requested_by: requestedByUserId,
+    })
+
+    if (error) {
+      console.error('request_changes error:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('requestChangesForBusiness error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
+
+/**
+ * Publish business (pending_review → published)
+ * Requires: Admin only
+ */
+export async function publishBusiness(
+  businessId: string,
+  publishedByUserId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createServiceRoleClient()
+
+    const { error } = await supabase.rpc('publish_business', {
+      p_business_id: businessId,
+      p_published_by: publishedByUserId,
+    })
+
+    if (error) {
+      console.error('publish_business error:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('publishBusiness error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
+
+/**
+ * Unpublish business (published → draft)
+ * Requires: Admin only
+ */
+export async function unpublishBusiness(
+  businessId: string,
+  unpublishedByUserId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createServiceRoleClient()
+
+    const { error } = await supabase.rpc('unpublish_business', {
+      p_business_id: businessId,
+      p_unpublished_by: unpublishedByUserId,
+    })
+
+    if (error) {
+      console.error('unpublish_business error:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('unpublishBusiness error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
