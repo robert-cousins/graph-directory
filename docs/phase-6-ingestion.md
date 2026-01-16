@@ -64,19 +64,28 @@ npm run seed:demo -- --verbose
 - `--dry-run, -d`: Show what would be done without database changes
 - `--verbose, -v`: Detailed output
 
-#### DataForSEO Ingestion
+#### DataForSEO Ingestion (Stub Implementation)
+
+**Important Note**: The DataForSEO commands are currently stub implementations that do not make external API calls. They are ready for API integration but currently serve as placeholders.
 
 ```bash
-# Google Maps SERP ingestion
+# Google Maps SERP ingestion (STUB - no external calls)
 export DATAFORSEO_LOGIN="your_login"
 export DATAFORSEO_PASSWORD="your_password"
 npm run ingest:dataforseo:maps -- --keywords "plumber,emergency plumber" --locations "Perth WA,Fremantle WA" --depth 20
 
-# Business Listings ingestion
+# Business Listings ingestion (STUB - no external calls)
 export DATAFORSEO_LOGIN="your_login"
 export DATAFORSEO_PASSWORD="your_password"
 npm run ingest:dataforseo:listings -- --categories "plumber" --locations "Perth WA" --limit 50
 ```
+
+**Intended Endpoints**:
+- **Google Maps SERP**: `https://api.dataforseo.com/v3/serp/google/maps/json`
+- **Business Listings**: `https://api.dataforseo.com/v3/business_data/google/maps`
+
+**Future Implementation**:
+The real API wiring will be added in the `packages/core-ingestion/src/dataforseo-client.ts` file (not yet created). Currently, these commands output placeholder messages to indicate where the integration will be implemented.
 
 ### Programmatic Usage
 
@@ -198,6 +207,12 @@ npm run db:revert 20260117_phase6_ingestion_tables
 
 # Clean up ingestion data (optional)
 npm run ingestion:cleanup
+
+# Manual rollback steps (if needed):
+1. Revert the migration to drop all ingestion tables
+2. No runtime behavior changes to revert
+3. Ingestion data is isolated and doesn't affect existing functionality
+4. Verify no orphaned records in businesses table (shouldn't exist due to constraints)
 ```
 
 ## Monitoring

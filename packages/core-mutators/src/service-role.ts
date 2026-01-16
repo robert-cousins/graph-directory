@@ -7,6 +7,10 @@ import { createClient } from '@supabase/supabase-js'
  *
  * Service role bypasses Row Level Security (RLS) - use with caution
  * Only use for operations that require elevated permissions
+ *
+ * TODO: Consolidate with packages/core-ingestion/src/service-role.ts
+ * to avoid duplication. Keep separate for now to maintain isolation,
+ * but refactor into shared core package in future.
  */
 export function createServiceRoleClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL

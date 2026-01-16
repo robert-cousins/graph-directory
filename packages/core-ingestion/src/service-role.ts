@@ -1,6 +1,10 @@
 /**
  * Ingestion Service Role Client
  * Lazy initialization to prevent import-time side effects
+ *
+ * TODO: Consolidate with packages/core-mutators/src/service-role.ts
+ * to avoid duplication. Keep separate for now to maintain isolation,
+ * but refactor into shared core package in future.
  */
 
 import { createClient } from '@supabase/supabase-js';
