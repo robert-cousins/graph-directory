@@ -41,7 +41,6 @@ export function EditBusinessForm({
     website: business.website || '',
     street_address: business.street_address || '',
     years_experience: business.years_experience?.toString() || '',
-    emergency_available: business.emergency_available,
     services: business.services,
     service_areas: business.service_areas,
     license_number: business.license_number || '',
@@ -63,7 +62,6 @@ export function EditBusinessForm({
         website: formData.website || undefined,
         street_address: formData.street_address || undefined,
         years_experience: formData.years_experience ? Number(formData.years_experience) : undefined,
-        emergency_available: formData.emergency_available,
         services: formData.services,
         service_areas: formData.service_areas,
         license_number: formData.license_number || undefined,
@@ -219,17 +217,6 @@ export function EditBusinessForm({
                 />
               </div>
 
-              {/* Emergency Available */}
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="emergency_available"
-                  checked={formData.emergency_available}
-                  onCheckedChange={checked =>
-                    setFormData(prev => ({ ...prev, emergency_available: checked === true }))
-                  }
-                />
-                <Label htmlFor="emergency_available">Emergency services available</Label>
-              </div>
 
               {/* Services */}
               <div>

@@ -30,15 +30,6 @@ function minRatingToRatingFilter(minRating: number | undefined): RatingFilter {
   return "3+ Stars"
 }
 
-function availabilityToEmergency(availability: AvailabilityFilter): boolean | undefined {
-  if (availability === "All") return undefined
-  // Both "Available Today" and "Available This Week" mean emergency=true for now
-  return true
-}
-
-function emergencyToAvailability(emergency: boolean | undefined): AvailabilityFilter {
-  return emergency ? "Available Today" : "All"
-}
 
 function sortOptionToParams(sortBy: SortOption): { sort: string; direction: string } {
   switch (sortBy) {
@@ -79,10 +70,6 @@ export function DesktopFilters() {
     const minRating = searchParams.get('minRating')
     return minRatingToRatingFilter(minRating ? parseFloat(minRating) : undefined)
   })
-  const [selectedAvailability, setSelectedAvailability] = useState<AvailabilityFilter>(() => {
-    const emergency = searchParams.get('emergency')
-    return emergencyToAvailability(emergency === 'true' ? true : undefined)
-  })
   const [selectedSuburb, setSelectedSuburb] = useState<SuburbFilter>("All Suburbs")
   const [sortBy, setSortBy] = useState<SortOption>(() => {
     const sort = searchParams.get('sort')
@@ -110,13 +97,6 @@ export function DesktopFilters() {
       params.delete('minRating')
     }
 
-    // Availability filter
-    const emergency = availabilityToEmergency(selectedAvailability)
-    if (emergency !== undefined) {
-      params.set('emergency', 'true')
-    } else {
-      params.delete('emergency')
-    }
 
     // Sort
     const { sort, direction } = sortOptionToParams(sortBy)
@@ -137,7 +117,7 @@ export function DesktopFilters() {
     if (newUrl !== currentUrl) {
       router.push(newUrl, { scroll: false })
     }
-  }, [selectedServices, selectedRating, selectedAvailability, selectedSuburb, sortBy, router, searchParams])
+  }, [selectedServices, selectedRating, selectedSuburb, sortBy, router, searchParams])
 
   return (
     <FilterSidebar
@@ -145,8 +125,6 @@ export function DesktopFilters() {
       setSelectedServices={setSelectedServices}
       selectedRating={selectedRating}
       setSelectedRating={setSelectedRating}
-      selectedAvailability={selectedAvailability}
-      setSelectedAvailability={setSelectedAvailability}
       selectedSuburb={selectedSuburb}
       setSelectedSuburb={setSelectedSuburb}
       sortBy={sortBy}
@@ -172,10 +150,6 @@ export function MobileFilters() {
     const minRating = searchParams.get('minRating')
     return minRatingToRatingFilter(minRating ? parseFloat(minRating) : undefined)
   })
-  const [selectedAvailability, setSelectedAvailability] = useState<AvailabilityFilter>(() => {
-    const emergency = searchParams.get('emergency')
-    return emergencyToAvailability(emergency === 'true' ? true : undefined)
-  })
   const [selectedSuburb, setSelectedSuburb] = useState<SuburbFilter>("All Suburbs")
   const [sortBy, setSortBy] = useState<SortOption>(() => {
     const sort = searchParams.get('sort')
@@ -203,13 +177,6 @@ export function MobileFilters() {
       params.delete('minRating')
     }
 
-    // Availability filter
-    const emergency = availabilityToEmergency(selectedAvailability)
-    if (emergency !== undefined) {
-      params.set('emergency', 'true')
-    } else {
-      params.delete('emergency')
-    }
 
     // Sort
     const { sort, direction } = sortOptionToParams(sortBy)
@@ -230,7 +197,7 @@ export function MobileFilters() {
     if (newUrl !== currentUrl) {
       router.push(newUrl, { scroll: false })
     }
-  }, [selectedServices, selectedRating, selectedAvailability, selectedSuburb, sortBy, router, searchParams])
+  }, [selectedServices, selectedRating, selectedSuburb, sortBy, router, searchParams])
 
   return (
     <MobileFilterMenu
@@ -240,8 +207,6 @@ export function MobileFilters() {
       setSelectedServices={setSelectedServices}
       selectedRating={selectedRating}
       setSelectedRating={setSelectedRating}
-      selectedAvailability={selectedAvailability}
-      setSelectedAvailability={setSelectedAvailability}
       selectedSuburb={selectedSuburb}
       setSelectedSuburb={setSelectedSuburb}
       sortBy={sortBy}

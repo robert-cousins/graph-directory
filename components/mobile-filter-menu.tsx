@@ -3,7 +3,7 @@ import { Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { FilterSidebar } from "@/components/filter-sidebar"
-import type { ServiceType, RatingFilter, AvailabilityFilter, SortOption, SuburbFilter } from "@/types/plumber"
+import type { ServiceType, RatingFilter, SortOption, SuburbFilter } from "@/types/plumber"
 
 interface MobileFilterMenuProps {
   isOpen: boolean
@@ -12,8 +12,6 @@ interface MobileFilterMenuProps {
   setSelectedServices: (services: ServiceType[]) => void
   selectedRating: RatingFilter
   setSelectedRating: (rating: RatingFilter) => void
-  selectedAvailability: AvailabilityFilter
-  setSelectedAvailability: (availability: AvailabilityFilter) => void
   selectedSuburb: SuburbFilter // Added suburb filter prop
   setSelectedSuburb: (suburb: SuburbFilter) => void // Added suburb filter setter
   sortBy: SortOption
@@ -27,8 +25,6 @@ export function MobileFilterMenu({
   setSelectedServices,
   selectedRating,
   setSelectedRating,
-  selectedAvailability,
-  setSelectedAvailability,
   selectedSuburb, // Added suburb filter parameter
   setSelectedSuburb, // Added suburb filter setter parameter
   sortBy,
@@ -37,7 +33,6 @@ export function MobileFilterMenu({
   const activeFiltersCount =
     selectedServices.length +
     (selectedRating !== "All Ratings" ? 1 : 0) +
-    (selectedAvailability !== "All" ? 1 : 0) +
     (selectedSuburb !== "All Suburbs" ? 1 : 0) // Added suburb filter to active count
 
   return (
@@ -61,10 +56,8 @@ export function MobileFilterMenu({
             setSelectedServices={setSelectedServices}
             selectedRating={selectedRating}
             setSelectedRating={setSelectedRating}
-            selectedAvailability={selectedAvailability}
-            setSelectedAvailability={setSelectedAvailability}
-            selectedSuburb={selectedSuburb} // Added suburb filter prop
-            setSelectedSuburb={setSelectedSuburb} // Added suburb filter setter
+          selectedSuburb={selectedSuburb} // Added suburb filter prop
+          setSelectedSuburb={setSelectedSuburb} // Added suburb filter setter
             sortBy={sortBy}
             setSortBy={setSortBy}
           />
