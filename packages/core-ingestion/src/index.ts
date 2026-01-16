@@ -8,7 +8,7 @@ export * from './service-role';
 export * from './applyLead';
 
 // Re-export for convenience
-export { createIngestionServiceRoleClient, getIngestionServiceRoleClient } from './service-role';
+export { getIngestionServiceRoleClient } from './service-role';
 export { applyLead, createIngestionRun, completeIngestionRun, failIngestionRun } from './applyLead';
 export type {
   IngestionSource,

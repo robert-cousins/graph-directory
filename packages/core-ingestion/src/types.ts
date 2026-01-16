@@ -112,7 +112,12 @@ export interface NormalizedLead {
 // Matching and Deduplication Types
 // ============================================================================
 
-export type MatchStrategy = 'external_id' | 'domain' | 'phone' | 'name_suburb' | 'new_creation';
+export type MatchStrategy =
+  | 'none'
+  | 'external_id'
+  | 'domain'
+  | 'phone'
+  | 'name_suburb';
 
 export interface LeadMatch {
   id: string;
