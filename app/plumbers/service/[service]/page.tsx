@@ -12,7 +12,6 @@ interface PageProps {
   searchParams: Promise<{
     page?: string
     pageSize?: string
-    emergency?: string
     verified?: string
     minRating?: string
   }>
@@ -25,13 +24,11 @@ export default async function ServicePage({ params, searchParams }: PageProps) {
   const sp = await searchParams
   const page = parseInt(sp.page || '1', 10)
   const pageSize = parseInt(sp.pageSize || '20', 10)
-  const emergency = sp.emergency === 'true'
   const verified = sp.verified === 'true'
   const minRating = sp.minRating ? parseFloat(sp.minRating) : undefined
 
   // Build additional filters
   const additionalFilters: Omit<BusinessFilters, 'service'> = {}
-  if (emergency) additionalFilters.emergency = true
   if (verified) additionalFilters.verified = true
   if (minRating) additionalFilters.minRating = minRating
 
@@ -78,11 +75,10 @@ export default async function ServicePage({ params, searchParams }: PageProps) {
           </div>
 
           {/* Filter Summary */}
-          {(emergency || verified || minRating) && (
+          {(verified || minRating) && (
             <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
               <p className="text-sm text-gray-700">
                 <span className="font-semibold">Filters applied:</span>
-                {emergency && <span className="ml-2 inline-block px-2 py-1 bg-white rounded text-xs">Emergency Available</span>}
                 {verified && <span className="ml-2 inline-block px-2 py-1 bg-white rounded text-xs">Verified</span>}
                 {minRating && <span className="ml-2 inline-block px-2 py-1 bg-white rounded text-xs">Rating {minRating}+</span>}
                 <a
@@ -107,7 +103,7 @@ export default async function ServicePage({ params, searchParams }: PageProps) {
                   No businesses found
                 </h2>
                 <p className="text-gray-500">
-                  {page === 1 && !emergency && !verified && !minRating
+                  {page === 1 && !verified && !minRating
                     ? `No plumbers currently offer ${serviceDisplayName.toLowerCase()} in this area.`
                     : 'Try adjusting your filters to see more results.'}
                 </p>
@@ -127,10 +123,8 @@ export default async function ServicePage({ params, searchParams }: PageProps) {
               {result.hasPrevPage && (
                 <a
                   href={`/plumbers/service/${service}?page=${page - 1}&pageSize=${pageSize}${
-                    emergency ? '&emergency=true' : ''
-                  }${verified ? '&verified=true' : ''}${
-                    minRating ? `&minRating=${minRating}` : ''
-                  }`}
+                    verified ? '&verified=true' : ''
+                  }${minRating ? `&minRating=${minRating}` : ''}`}
                   className="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50"
                 >
                   Previous
@@ -144,10 +138,8 @@ export default async function ServicePage({ params, searchParams }: PageProps) {
               {result.hasNextPage && (
                 <a
                   href={`/plumbers/service/${service}?page=${page + 1}&pageSize=${pageSize}${
-                    emergency ? '&emergency=true' : ''
-                  }${verified ? '&verified=true' : ''}${
-                    minRating ? `&minRating=${minRating}` : ''
-                  }`}
+                    verified ? '&verified=true' : ''
+                  }${minRating ? `&minRating=${minRating}` : ''}`}
                   className="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50"
                 >
                   Next

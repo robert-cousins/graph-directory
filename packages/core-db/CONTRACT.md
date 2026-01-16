@@ -106,3 +106,19 @@ services TEXT[]
 ## Version History
 
 - **v1.0**: Initial stable contracts (published_businesses view, service/area query functions)
+
+---
+
+## Publication Model (Phase 5)
+
+Authoritative publication lifecycle and visibility rules are defined in:
+
+- `docs/architecture/phase-5-publication-model.md`
+
+### Contract intent (to be implemented in Phase 5.2+)
+
+- Public read surfaces (`published_*` views and/or public RPCs) must only return records in `lifecycle_state = 'published'`.
+- Non-published records must not be readable by anonymous/public roles.
+- Admin/editor read surfaces for draft/review content must be exposed via DB views/RPCs and consumed through `core-data` (never via raw table queries in apps/instances).
+- All lifecycle transitions must occur through `core-mutators` and remain server-only.
+

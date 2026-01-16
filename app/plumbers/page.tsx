@@ -13,7 +13,6 @@ interface PageProps {
   searchParams: Promise<{
     page?: string
     pageSize?: string
-    emergency?: string
     verified?: string
     minRating?: string
     search?: string
@@ -27,7 +26,6 @@ export default async function PlumbersPage({ searchParams }: PageProps) {
   const sp = await searchParams
   const page = parseInt(sp.page || '1', 10)
   const pageSize = parseInt(sp.pageSize || '20', 10)
-  const emergency = sp.emergency === 'true'
   const verified = sp.verified === 'true'
   const minRating = sp.minRating ? parseFloat(sp.minRating) : undefined
   const search = sp.search || undefined
@@ -36,7 +34,6 @@ export default async function PlumbersPage({ searchParams }: PageProps) {
 
   // Build filters
   const filters: BusinessFilters = {}
-  if (emergency) filters.emergency = true
   if (verified) filters.verified = true
   if (minRating !== undefined) filters.minRating = minRating
   if (search) filters.search = search
@@ -59,23 +56,22 @@ export default async function PlumbersPage({ searchParams }: PageProps) {
     return 'Plumbers in Melville, Myaree & Booragoon, WA'
   }
 
-  // Helper to preserve current query params in pagination links
-  const buildPageHref = (nextPage: number) => {
-    const params = new URLSearchParams()
+    // Helper to preserve current query params in pagination links
+    const buildPageHref = (nextPage: number) => {
+      const params = new URLSearchParams()
 
-    params.set('page', String(nextPage))
-    params.set('pageSize', String(pageSize))
+      params.set('page', String(nextPage))
+      params.set('pageSize', String(pageSize))
 
-    if (emergency) params.set('emergency', 'true')
-    if (verified) params.set('verified', 'true')
-    if (minRating !== undefined) params.set('minRating', String(minRating))
-    if (search) params.set('search', search)
+      if (verified) params.set('verified', 'true')
+      if (minRating !== undefined) params.set('minRating', String(minRating))
+      if (search) params.set('search', search)
 
-    if (sortBy && sortBy !== 'rating') params.set('sort', String(sortBy))
-    if (sortDirection && sortDirection !== 'desc') params.set('direction', String(sortDirection))
+      if (sortBy && sortBy !== 'rating') params.set('sort', String(sortBy))
+      if (sortDirection && sortDirection !== 'desc') params.set('direction', String(sortDirection))
 
-    return `/plumbers?${params.toString()}`
-  }
+      return `/plumbers?${params.toString()}`
+    }
 
   return (
     <div className="min-h-screen bg-gray-50">

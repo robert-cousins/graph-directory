@@ -74,13 +74,6 @@ export default async function PlumberPage({ params }: PlumberPageProps) {
                   <span className="ml-1 text-lg font-semibold text-white">{business.rating}</span>
                   <span className="text-white/80 ml-1">({business.reviewCount} reviews)</span>
                 </div>
-
-                {business.emergencyAvailable ? (
-                  <Badge className="bg-green-600 hover:bg-green-700">
-                    <Clock className="h-3 w-3 mr-1" />
-                    Emergency Available
-                  </Badge>
-                ) : null}
               </div>
 
               <p className="text-white/90 text-lg max-w-2xl">{business.description}</p>
@@ -299,12 +292,6 @@ export default async function PlumberPage({ params }: PlumberPageProps) {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Reviews</span>
                   <span className="font-medium">{business.reviewCount}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Emergency Service</span>
-                  <span className={`font-medium ${business.emergencyAvailable ? "text-green-600" : "text-gray-500"}`}>
-                    {business.emergencyAvailable ? "Available" : "Not Available"}
-                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Services</span>
