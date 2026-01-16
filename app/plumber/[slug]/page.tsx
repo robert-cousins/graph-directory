@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/breadcrumb"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { unwrap } from "@/lib/next/params"
 
 import { getPublishedBusinessBySlug, listPublishedBusinesses } from "@graph-directory/core-data"
 
@@ -22,7 +23,7 @@ interface PlumberPageProps {
 }
 
 export default async function PlumberPage({ params }: PlumberPageProps) {
-  const { slug } = await params
+  const { slug } = await unwrap(params)
   const business = await getPublishedBusinessBySlug(slug)
 
   if (!business) {

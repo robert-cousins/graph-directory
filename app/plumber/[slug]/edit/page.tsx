@@ -7,6 +7,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { EditBusinessForm } from './edit-form'
+import { unwrap } from '@/lib/next/params'
 
 interface PageProps {
   params: { slug: string }
@@ -15,7 +16,7 @@ interface PageProps {
 
 export default async function EditBusinessPage({ params, searchParams }: PageProps) {
   const { slug } = params
-  const sp = await searchParams
+  const sp = await unwrap(searchParams)
   const token = sp.token
 
   // Missing token

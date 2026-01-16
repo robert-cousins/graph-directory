@@ -4,6 +4,7 @@ import { PlumberCard } from '@/components/plumber-card'
 import { listPublishedBusinessesByService } from '@/lib/business-service'
 import { notFound } from 'next/navigation'
 import type { BusinessFilters } from '@/types/business'
+import { unwrap, one } from '@/lib/next/params'
 
 interface PageProps {
   params: {
@@ -22,9 +23,9 @@ export default async function ServicePage({ params, searchParams }: PageProps) {
   const { service } = params
 
   // Parse search params
-  const sp = await searchParams
-  const page = parseInt(sp.page || '1', 10)
-  const pageSize = parseInt(sp.pageSize || '20', 10)
+  const sp = await unwrap(searchParams)
+  const page = parseInt(one(sp.page) ?? '1', 10)
+  const pageSize = parseInt(one(sp.pageSize) ?? '20', 10)
   const emergency = sp.emergency === 'true'
   const verified = sp.verified === 'true'
   const minRating = sp.minRating ? parseFloat(sp.minRating) : undefined

@@ -4,6 +4,7 @@ import { DesktopFilters, MobileFilters } from '@/components/plumbers-filters'
 import { PlumberCard } from '@/components/plumber-card'
 import { listPublishedBusinesses } from '@graph-directory/core-data'
 import type { BusinessFilters, BusinessSortBy, SortDirection } from '@graph-directory/core-contracts'
+import { unwrap, one } from '@/lib/next/params'
 
 // This page depends on runtime data (Supabase). Force dynamic rendering so CI builds
 // don’t require DB env vars during prerender.
@@ -24,9 +25,9 @@ interface PageProps {
 
 export default async function PlumbersPage({ searchParams }: PageProps) {
   // Parse search params
-  const sp = await searchParams
-  const page = parseInt(sp.page || '1', 10)
-  const pageSize = parseInt(sp.pageSize || '20', 10)
+  const sp = await unwrap(searchParams)
+  const page = parseInt(one(sp.page) ?? '1', 10)
+  const pageSize = parseInt(one(sp.pageSize) ?? '20', 10)
   const emergency = sp.emergency === 'true'
   const verified = sp.verified === 'true'
   const minRating = sp.minRating ? parseFloat(sp.minRating) : undefined
