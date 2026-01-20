@@ -1,13 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { isAdminClient } from "@/lib/admin/client-is-admin"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showAdmin, setShowAdmin] = useState(false)
+
+  useEffect(() => {
+    isAdminClient().then(setShowAdmin);
+  }, [])
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -23,6 +29,11 @@ export function Header() {
             <Link href="/plumbers" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
               Find Plumbers
             </Link>
+            {showAdmin && (
+              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                Admin
+              </Link>
+            )}
             <Link href="/list-your-business">
               <Button variant="outline" size="sm" className="bg-transparent">
                 List Your Business
@@ -51,6 +62,15 @@ export function Header() {
                   >
                     Find Plumbers
                   </Link>
+                  {showAdmin && (
+                    <Link
+                      href="/admin"
+                      className="block text-lg font-medium text-gray-900 hover:text-blue-600 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Admin
+                    </Link>
+                  )}
                   <Link
                     href="#"
                     className="block text-lg font-medium text-gray-900 hover:text-blue-600 transition-colors"

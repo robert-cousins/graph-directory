@@ -8,14 +8,21 @@ export const isSupabaseConfigured =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.length > 0
 
 export function createClient() {
+  if (!isSupabaseConfigured) {
+    throw new Error("Supabase is not configured");
+  }
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     // Supabase docs call this "PUBLISHABLE_KEY" now, but it is the same idea as your ANON key.
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
-export const supabase = createClient()
 
-export const getSupabaseClient = () => {
-  return supabase
+let _client: ReturnType<typeof createClient> | null = null;
+
+export function getSupabaseClient() {
+  if (!_client) {
+    _client = createClient();
+  }
+  return _client;
 }

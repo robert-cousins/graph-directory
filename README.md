@@ -436,4 +436,10 @@ interface BusinessFilters {
 }
 ```
 
+## Admin Access
 
+### Environment Variables
+- `ADMIN_EMAIL_ALLOWLIST="me@example.com,other@example.com"` (server enforcement in `requireAdmin`)
+- `NEXT_PUBLIC_ADMIN_EMAIL_ALLOWLIST="me@example.com,other@example.com"` (UI visibility only)
+
+Without allowlist, admin deny-by-default. Admin pages require auth session.
