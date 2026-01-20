@@ -24,12 +24,6 @@ export function PlumberCard({ business }: PlumberCardProps) {
                   <span className="ml-1 font-medium">{business.rating}</span>
                   <span className="text-gray-500 text-sm ml-1">({business.reviewCount})</span>
                 </div>
-                {business.emergencyAvailable && (
-                  <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                    <Clock className="h-3 w-3 mr-1" />
-                    Emergency
-                  </Badge>
-                )}
               </div>
             </div>
 

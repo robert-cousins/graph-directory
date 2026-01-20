@@ -1,23 +1,24 @@
-## What changed (summary)
+## Release Safety Gate (integration)
 
-## Why (context)
+- [ ] PR targets **integration** (not main)
+- [ ] All required checks are ✅ green (build-test)
+- [ ] No behaviour changes unless explicitly intended for this phase
+- [ ] No secrets committed
+- [ ] Manual smoke completed (if applicable)
 
-## Core vs Instance impact
-- [ ] Core touched (packages/*)
-- [ ] Instance touched (apps/* or instances/*)
-- [ ] Boundary respected (no instance logic leaked into core)
+### Notes for coding agent
+(What changed, why, and any risk)
 
-## DB contracts
-- [ ] No DB contract changes
-- [ ] DB contract changes (views/RPC) documented in core-db notes
+Repo merge policy (must follow):
 
-## Invariants checklist (must remain true)
-- [ ] Public reads are only from published_* views / RPC
-- [ ] No client-side writes to Supabase
-- [ ] Publishing gates not weakened
-- [ ] “Published” remains distinct from “Exists”
+- You may merge PRs ONLY into `integration`, never into `main`.
+- You may merge only when:
+  - PR is not Draft
+  - All required checks (including build-test) are green
+  - No merge conflicts
+  - PR description includes the safety checklist and it is accurate
 
-## How to test
-- Steps:
+- Do NOT bypass branch protection rules.
+- If checks are not running, do not merge; report why (workflow trigger / required checks missing).
 
-## Screenshots (optional)
+- Only Robert merges `integration` -> `main` PRs.

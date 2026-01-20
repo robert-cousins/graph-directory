@@ -85,17 +85,6 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 border-0 shadow-md">
-              <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Phone className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">24/7 Emergency</h3>
-                <p className="text-gray-600">
-                  Find plumbers available for emergency callouts, with clear availability and response times.
-                </p>
-              </CardContent>
-            </Card>
 
             <Card className="text-center p-6 border-0 shadow-md">
               <CardContent className="pt-6">
