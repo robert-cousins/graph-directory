@@ -14,7 +14,7 @@ interface PageProps {
 }
 
 export default async function EditBusinessPage({ params, searchParams }: PageProps) {
-  const { slug } = await params
+  const { slug } = params
   const sp = await searchParams
   const token = sp.token
 
