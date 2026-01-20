@@ -66,8 +66,6 @@ export async function requireAdmin(): Promise<AdminUser> {
   }
 
   // User is authorized
-  console.log(`[Admin Guard] Admin access granted to ${user.email}`)
-
   return {
     id: user.id,
     email: user.email,
@@ -88,10 +86,17 @@ export async function requireAdmin(): Promise<AdminUser> {
  * ```
  */
 export async function checkIsAdmin(): Promise<boolean> {
-  try {
-    await requireAdmin()
-    return true
-  } catch {
-    return false
-  }
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user?.email) return false
+
+  const allowlistEnv = process.env.ADMIN_EMAIL_ALLOWLIST
+  if (!allowlistEnv?.trim()) return false
+
+  const allowedEmails = allowlistEnv
+    .split(',')
+    .map(e => e.trim().toLowerCase())
+    .filter(Boolean)
+
+  return allowedEmails.includes(user.email.toLowerCase())
 }
