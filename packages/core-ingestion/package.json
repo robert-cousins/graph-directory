@@ -12,8 +12,8 @@
   "dependencies": {
     "@graph-directory/core-mutators": "workspace:*",
     "@graph-directory/core-contracts": "workspace:*",
-    "@supabase/supabase-js": "^2.90.1",
-    "zod": "^4.3.5",
+    "@supabase/supabase-js": "^2.95.3",
+    "zod": "^4.3.6",
     "crypto": "^1.0.1"
   },
   "devDependencies": {
